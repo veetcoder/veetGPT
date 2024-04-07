@@ -1,5 +1,4 @@
 "use server";
-
 import MistralClient from "@mistralai/mistralai";
 import { Ratelimit } from "@upstash/ratelimit";
 import {
@@ -9,6 +8,8 @@ import {
 } from "ai";
 import { headers } from "next/headers";
 import { kv } from "@vercel/kv";
+
+export const runtime = "edge";
 
 const client = new MistralClient(process.env.MISTRAL_API_KEY);
 
@@ -37,5 +38,5 @@ export async function handler({ messages }: { messages: Message[] }) {
 
   const stream = MistralStream(response);
 
-  return new experimental_StreamingReactResponse(stream);
+  return new experimental_StreamingReactResponse(stream, {});
 }
