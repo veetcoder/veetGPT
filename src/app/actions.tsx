@@ -2,11 +2,7 @@
 
 import MistralClient from "@mistralai/mistralai";
 import { Ratelimit } from "@upstash/ratelimit";
-import {
-  MistralStream,
-  experimental_StreamingReactResponse,
-  Message,
-} from "ai";
+import { MistralStream, Message, StreamingTextResponse } from "ai";
 import { headers } from "next/headers";
 import { kv } from "@vercel/kv";
 
@@ -29,6 +25,7 @@ export async function handler({ messages }: { messages: Message[] }) {
 
   const response = client.chatStream({
     model: "mistral-tiny",
+    maxTokens: 1000,
     messages: messages.map((m) => ({
       role: m.role,
       content: m.content,
@@ -37,5 +34,5 @@ export async function handler({ messages }: { messages: Message[] }) {
 
   const stream = MistralStream(response);
 
-  return new experimental_StreamingReactResponse(stream);
+  return new StreamingTextResponse(stream);
 }

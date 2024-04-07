@@ -52,6 +52,7 @@ export default function Page() {
             onChange={handleInputChange}
             value={input}
             autoFocus
+            maxLength={1000}
           />
           <Button type="submit" disabled={isLoading}>
             Send
