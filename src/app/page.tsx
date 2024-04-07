@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { useEffect } from "react";
 
+export const runtime = "edge";
+
 export default function Page() {
   const { toast } = useToast();
   const { messages, input, handleInputChange, handleSubmit, isLoading, error } =
